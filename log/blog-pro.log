@@ -1,0 +1,5 @@
+2020-05-29 15:22:53.828  INFO 5736 --- [restartedMain] com.cxzjava.blog.BlogApplication         : Starting BlogApplication on Look-at-me with PID 5736 (E:\Users\Shinelon\IdeaProjects\blog\target\classes started by Shinelon in E:\Users\Shinelon\IdeaProjects\blog)
+2020-05-29 15:22:53.830  INFO 5736 --- [restartedMain] com.cxzjava.blog.BlogApplication         : The following profiles are active: pro
+2020-05-29 15:22:55.436  WARN 5736 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-29 15:22:55.611  WARN 5736 --- [task-1] com.zaxxer.hikari.util.DriverDataSource  : Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2020-05-29 15:22:56.261  INFO 5736 --- [restartedMain] com.cxzjava.blog.BlogApplication         : Started BlogApplication in 3.137 seconds (JVM running for 4.358)

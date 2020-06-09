@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <title>标签管理</title>
+</head>
+<body>
+    <!-- 导航 -->
+    <nav th:replace="admin/_fragments :: menu(3)" class="ui inverted attached segment m-padded-mini">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <h2 class="ui teal header item">Synear</h2>
+                <a href="#" class="item m-mobile-hide"><i class="small home icon"></i>博客</a>
+                <a href="#" class="item m-mobile-hide"><i class="small idea icon"></i>分类</a>
+                <a href="#" class="item m-mobile-hide"><i class="small tags icon"></i>标签</a>
+                <div class="right menu m-mobile-hide">
+                    <div class="ui dropdown item">
+                        <div class="text">
+                            <img class="ui avatar image" src="https://picsum.photos/id/1005/100/100"> 
+                            Synear
+                        </div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a href="#" class="item">注销</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+            <i class="sidebar icon"></i>
+        </a>
+    </nav>
+    <div class="ui attached pointing menu">
+        <div class="ui container">
+            <div class="right menu">
+                <a href="#" th:href="@{/admin/tag/input}" class="item">新增</a>
+                <a href="#" th:href="@{/admin/tag}" class="teal active item">列表</a>
+            </div>
+        </div>
+    </div>
+    <!-- 中间内容 -->
+    <div class="m-container-small m-padded-tb-big">
+        <div class="ui container">
+            <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+                <i class="close icon"></i>
+                <div class="header">提示：</div>
+                <p th:text="${message}">Nice，操作成功！</p>
+            </div>
+            <table class="ui compact teal table">
+                <thead>
+                  <th></th>
+                  <th>名称</th>
+                  <th>操作</th>
+                </thead>
+                <tbody>
+                  <tr th:each="tag,iterStat : ${page}">
+                    <td th:text="${iterStat.count}">1</td>
+                    <td th:text="${tag.name}">撒谎的</td>
+                    <td>
+                        <a href="#" th:href="@{/admin/tag/{id}/input(id=${tag.id})}" class="ui teal basic mini button">编辑</a>
+                        <a href="#" th:href="@{/admin/tag/{id}/delete(id=${tag.id})}" class="ui red basic mini button">删除</a>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="5">
+                            <div class="ui mini pagination menu" th:if="${page.totalPages}>1">
+                            <a th:href="@{/admin/tag(page=${page.number}-1)}" th:unless="${page.first}" class="icon item">上一页</a>
+                            <a th:href="@{/admin/tag(page=${page.number}+1)}" th:unless="${page.last}" class="icon item">下一页</a>
+                            </div>
+                            <a href="#" th:href="@{/admin/tag/input}" class="ui right floated primary mini button basic">新增</a>
+                        </th>
+                    </tr>
+                </tfoot>
+              </table>            
+        </div>
+    </div>
+
+    <br/>
+    <br/>
+    <br/>
+    <!-- 底部 -->
+    <footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-massive">
+    </footer>
+
+    <th:block th:replace="admin/_fragments :: script">
+
+    </th:block>
+<script>
+    $(".menu.toggle").click(function(){
+        $(".stackable.menu").children().not("h2").toggleClass('m-mobile-hide')
+    })
+
+    $('.ui.dropdown').dropdown();
+
+    $('.message .close').on('click',function () {
+        $(this).closest('.message').transition('fade');
+    })
+</script>
+</body>
+</html>

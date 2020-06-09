@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <title>博客管理</title>
+</head>
+<body>
+<!-- 导航 -->
+<nav th:replace="admin/_fragments :: menu(1)" class="ui inverted attached segment m-padded-mini">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item">Synear</h2>
+            <a href="#" class="active item m-mobile-hide"><i class="small home icon"></i>博客</a>
+            <a href="#" class="item m-mobile-hide"><i class="small idea icon"></i>分类</a>
+            <a href="#" class="item m-mobile-hide"><i class="small tags icon"></i>标签</a>
+            <div class="right menu m-mobile-hide">
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <img class="ui avatar image" src="https://picsum.photos/id/1005/100/100">
+                        Synear
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" class="item">注销</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+<div class="ui attached pointing menu">
+    <div class="ui container">
+        <div class="right menu">
+            <a href="#" th:href="@{/admin/blog/input}" class="item">新增</a>
+            <a href="#" th:href="@{/admin/blog}" class="teal active item">列表</a>
+        </div>
+    </div>
+</div>
+<!-- 中间内容 -->
+<div class="m-container-small m-padded-tb-big">
+    <div class="ui container">
+        <div class="ui secondary segment form">
+            <input type="hidden" name="page">
+            <div class=" inline fields">
+                <div class="field">
+                    <input type="text" name="title" placeholder="标题">
+                </div>
+                <div class="field">
+                    <div class="ui labeled action input">
+                        <div class="ui selection type dropdown">
+                            <input type="hidden" name="typeId">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">分类</div>
+                            <div class="menu">
+                                <div th:each="eType : ${type}" class="item" data-value="1" th:data-value="${eType.id}" th:text="${eType.name}">错误日志</div>
+                                <!--                              <div class="item" data-value="0">开发者手册</div>-->
+                            </div>
+                        </div>
+                        <button id="clear" class="ui button">Clear</button>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input type="checkbox" name="recommend" id="recommend">
+                        <label for="recommend">推荐</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <button  id="search-btn" class="ui small teal basic button"><i class="search icon"></i>搜索</button>
+                </div>
+            </div>
+        </div>
+        <div id="table-container">
+            <table th:fragment="blogList" class="ui compact teal table">
+                <thead>
+                <th></th>
+                <th>标题</th>
+                <th>类型</th>
+                <th>推荐</th>
+                <th>状态</th>
+                <th>更新时间</th>
+                <th>操作</th>
+                </thead>
+                <tbody>
+                    <tr th:each="blog,iterStat : ${page}">
+                        <td th:text="${iterStat.count}">1</td>
+                        <td th:text="${#strings.abbreviate(blog.title,20)}">撒谎的</td>
+                        <td th:text="${blog.type.name}"></td>
+                        <td th:text="${blog.recommend} ? '是':'否'"></td>
+                        <td th:text="${blog.published} ? '发布':'草稿'"></td>
+                        <td th:text="${blog.updateTime}">2020-05-27</td>
+                        <td>
+                            <a href="#" th:href="@{/admin/blog/{id}/input(id=${blog.id})}" class="ui teal basic mini button">编辑</a>
+                            <a th:href="@{/admin/blog/{id}/delete(id=${blog.id})}" onclick="return confirm('您确定要删除吗？')" class="ui red del basic mini button">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="7">
+                            <div class="ui mini pagination menu" th:if="${page.totalPages}>1">
+                                <a onclick="page(this)" th:attr="data-page=${page.number}-1" data-page="${page.number}-1)}" th:unless="${page.first}" class="icon item">上一页</a>
+                                <a onclick="page(this)" th:attr="data-page=${page.number}+1" data-page="${page.number}+1)}" th:unless="${page.last}" class="icon item">下一页</a>
+                            </div>
+                            <a href="#" th:href="@{/admin/blog/input}" class="ui right floated primary mini button basic">新增</a>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+            <div class="ui basic modal">
+                <i class="close icon"></i>
+                <div class="header">
+                    Modal Title
+                </div>
+                <div class="content">
+                    <div class="image">
+                        An image can appear on left or an icon
+                    </div>
+                    <div class="description">
+                        A description can appear on the right
+                    </div>
+                </div>
+                <div class="actions">
+                    <div class="ui cancel button" id="cancel">Cancel</div>
+                    <div class="ui ok button" id="ok">OK</div>
+                </div>
+            </div>
+            <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+                <i class="close icon"></i>
+                <div class="header">提示：</div>
+                <p th:text="${message}">Nice，操作成功！</p>
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+<br/>
+<!-- 底部 -->
+<footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-massive">
+</footer>
+
+<th:block th:replace="admin/_fragments :: script">
+
+</th:block>
+<script>
+    $(".menu.toggle").click(function(){
+        $(".stackable.menu").children().not("h2").toggleClass('m-mobile-hide')
+    })
+
+    $('.ui.dropdown').dropdown();
+
+    function page(obj) {
+        $("[name='page']").val($(obj).data("page"));
+        loaddata();
+    }
+
+
+    $("#search-btn").click(function () {
+        $("[name='page']").val(0);
+        loaddata();
+    })
+
+    $('.message .close').on('click',function () {
+        $(this).closest('.message').transition('fade');
+    })
+
+    $('#clear').on('click',function () {
+        $('.ui.type.dropdown').dropdown('clear');
+    });
+
+
+    function loaddata() {
+        $("#table-container").load(/*[[@{/admin/blog/search}]]*/"/admin/blog/search",{
+            title : $("[name='title']").val(),
+            typeId : $("[name='typeId']").val(),
+            recommend : $("[name='recommend']").prop('checked'),
+            page : $("[name='page']").val()
+        });
+    }
+</script>
+</body>
+</html>
