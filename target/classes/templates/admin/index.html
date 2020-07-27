@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <title>管理后台</title>
+</head>
+<body>
+    <!-- 导航 -->
+    <nav th:replace="admin/_fragments :: menu(0)" class="ui inverted attached segment m-padded-mini">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <h2 class="ui teal header item">Synear</h2>
+                <a href="#" class="active item m-mobile-hide"><i class="small home icon"></i>博客</a>
+                <a href="#" class="item m-mobile-hide"><i class="small idea icon"></i>分类</a>
+                <a href="#" class="item m-mobile-hide"><i class="small tags icon"></i>标签</a>
+                <div class="right menu m-mobile-hide">
+                    <div class="ui dropdown item">
+                        <div class="text">
+                            <img class="ui avatar image" src="https://picsum.photos/id/1005/100/100"> 
+                            Synear
+                        </div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a href="#" class="item">注销</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+            <i class="sidebar icon"></i>
+        </a>
+    </nav>
+
+    <!-- 中间内容 -->
+    <div class="m-container-small m-padded-tb-big">
+        <div class="ui container">
+            <div class="ui success large message">
+                <h3>Hi,</h3>
+                <p>Synear，欢迎登录！</p>
+            </div>
+            <img src="https://picsum.photos/id/1004/1000/400"  alt="" class="ui rounded bordered fluid image">
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <!-- 底部 -->
+    <footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-massive">
+    </footer>
+
+    <th:block th:replace="admin/_fragments :: script">
+
+    </th:block>
+<script>
+    $(".menu.toggle").click(function(){
+        $(".stackable.menu").children().not("h2").toggleClass('m-mobile-hide')
+    })
+
+    $('.ui.dropdown').dropdown();
+</script>
+</body>
+</html>

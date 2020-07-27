@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <title>关于我</title>
+</head>
+<body>
+    <!-- 导航 -->
+    <nav th:replace="_fragments :: menu(5)" class="ui inverted attached segment m-padded-tb-mini">
+    </nav>
+    <!-- 中间内容 -->
+    <div class="m-container m-padded-tb-big animated fadeIn">
+        <div class="ui container">
+            <div class="ui stackable grid">
+                <div class="eleven wide column">
+                    <div class="ui segment">
+                        <img src="../static/images/about.jpg" th:src="@{/images/about.jpg}" alt="" class="ui rounded image">
+                    </div>
+                </div>
+                <div class="five wide column">
+                    <div class="ui top attached segment">
+                        <div class="ui header">关于我</div>
+                    </div>
+                    <div class="ui attached segment">
+                        <p class="m-text">Synear,一个折腾在0和1世界里的小伙；一个终生学习者，希望结识更多在编程以及生活上共同成长的伙伴。</p>
+                        <p class="m-text">热爱编程，喜欢折腾，正在探索学习高效学习编程技术的方法...</p>
+                    </div>
+                    <div class="ui attached segment">
+                        <div class="ui orange basic label">编程</div>
+                        <div class="ui red basic label">思考</div>
+                        <div class="ui teal basic label">运动</div>
+                        <div class="ui blue basic label">旅游</div>
+                    </div>
+                    <div class="ui attached segment">
+                        <div class="ui orange basic label left pointing m-margin-tb-tiny m-margin-lr-small">Java</div>
+                        <div class="ui red basic label left pointing m-margin-tb-tiny m-margin-lr-small">Linux</div>
+                        <div class="ui teal basic label left pointing m-margin-tb-tiny m-margin-lr-small">MySql</div>
+                        <div class="ui blue basic label left pointing m-margin-tb-tiny m-margin-lr-small">Redis</div>
+                        <div class="ui yellow basic label left pointing m-margin-tb-tiny m-margin-lr-small">JavaScript</div>
+                        <div class="ui black basic label left pointing m-margin-tb-tiny m-margin-lr-small">...</div>
+                    </div>
+                    <div class="ui bottom attached segment">
+                        <a href="https://github.com/Synear9409" class="ui circular icon button"><i class="black github icon"></i></a>
+                        <a href="#" class="ui qq circular icon button" data-content="QQ：1521367847" data-position="bottom center"><i class="blue qq icon"></i></a>
+                        <a href="#" class="ui wechat circular icon button"><i class="green weixin icon"></i></a>
+                    </div>
+                    <div class="ui flowing weixin-qr popup transition hidden m-padded-tiny">
+                        <img src="../static/images/mine.jpg" th:src="@{/images/mine.jpg}" alt="" class="ui rounded image" style="width: 120px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <!-- 底部 -->
+    <footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-massive">
+
+    </footer>
+
+    <!--    引入js公共部分   -->
+    <th:block th:replace="_fragments :: script">
+    </th:block>
+<script>
+    $(".menu.toggle").click(function(){
+        $(".stackable.menu").children().not("h2").toggleClass('m-mobile-hide')
+    })
+    // qq
+    $('.qq').popup();
+    //微信
+    $(".wechat").popup({
+        popup : $('.weixin-qr'),
+        position : 'bottom center' 
+    })
+</script>
+</body>
+</html>

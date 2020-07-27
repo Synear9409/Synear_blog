@@ -1,2 +1,20 @@
 # Project exclude paths
-/target/
+*.class
+*.log
+*.lock
+
+#Package Files
+*.jar
+.idea/
+*.iml
+
+### IntelliJ IDEA
+*.ipr
+*.iws
+.idea
+.classpath
+.project
+.settings/
+bin/
+
+log/
